@@ -272,6 +272,13 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
 .reserve-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
 @media(max-width:960px){.reserve-grid{grid-template-columns:1fr;gap:36px;}}
 
+/* dual band (2분할 이미지) */
+.dual-band{display:grid;grid-template-columns:1fr 1fr;gap:0;height:50vh;min-height:340px;}
+.dual-band>div{position:relative;overflow:hidden;}
+.dual-band img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease;}
+.dual-band>div:hover img{transform:scale(1.04);}
+@media(max-width:760px){.dual-band{grid-template-columns:1fr;height:auto;}.dual-band>div{height:40vh;min-height:240px;}}
+
 @keyframes spin{to{transform:rotate(360deg);}}
 
 /* responsive */
@@ -370,12 +377,16 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
   </section>
 
   <!-- band: 입지 -->
-  <section class="band reveal" style="height:56vh;">
-    <img src="./images/parkroche/infra-plaza.jpg" alt="서울원 도심 전경">
-    <div class="band-veil"></div>
-    <div class="band-cap">
-      <div class="e">LOCATION</div>
-      <div class="t">광운대역세권, 도심 한가운데</div>
+  <section class="dual-band reveal">
+    <div>
+      <img src="./images/parkroche/infra-plaza.jpg" alt="서울원 광장 도심 전경">
+      <div class="band-veil"></div>
+      <div class="band-cap"><div class="e">LOCATION</div><div class="t" style="font-size:clamp(19px,2.2vw,28px);">광운대역세권<br>도심 한가운데</div></div>
+    </div>
+    <div>
+      <img src="./images/parkroche/infra-mall.jpg" alt="서울원 아이파크몰">
+      <div class="band-veil"></div>
+      <div class="band-cap"><div class="e">INFRA</div><div class="t" style="font-size:clamp(19px,2.2vw,28px);">아이파크몰<br>도심 생활 인프라</div></div>
     </div>
   </section>
 
