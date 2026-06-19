@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>파크로쉬 서울원 | 광운대역세권, 새로운 삶의 방식</title>
+<meta name="description" content="파크로쉬 서울원 — 서울 노원구 광운대역세권. 지상 49층 2개 동 768가구, 전용 70·73·80㎡. 메디컬·다이닝·피트니스·컨시어지가 이어지는 웰니스 라이프. 갤러리 방문 예약 1555-1087">
+<meta name="keywords" content="파크로쉬 서울원, 파크로쉬, 서울원, 광운대역세권, 노원 웰니스, 서울원 파크로쉬, 웰니스 라이프">
+<meta name="author" content="파크로쉬 서울원">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="파크로쉬 서울원 | 새로운 삶의 방식">
+<meta property="og:description" content="서울 노원구 광운대역세권. 지상 49층 2개 동 768가구. 메디컬·다이닝·피트니스·컨시어지가 이어지는 웰니스 라이프.">
+<meta property="og:image" content="./images/parkroche/aerial-01.jpg">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="파크로쉬 서울원">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="파크로쉬 서울원 | 새로운 삶의 방식">
+<meta name="twitter:description" content="서울 노원구 광운대역세권. 웰니스 라이프의 시작.">
+<meta name="twitter:image" content="./images/parkroche/aerial-01.jpg">
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://code.iconify.design">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<style>
+:root{
+  --ink:#0d0d0d;
+  --ink2:#171717;
+  --paper:#ffffff;
+  --soft:#f5f4f1;
+  --soft2:#eceae5;
+  --text:#222222;
+  --text2:#4a4a4a;
+  --dim:#8c8a86;
+  --line:#e4e2dd;
+  --line-on-dark:rgba(255,255,255,0.16);
+  --dim-on-dark:rgba(255,255,255,0.55);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Pretendard',-apple-system,sans-serif;
+  background:var(--paper);
+  color:var(--text);
+  line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%;}
+button{font-family:inherit;cursor:pointer;border:none;background:none;}
+.eng{font-family:'Pretendard',sans-serif;letter-spacing:0.18em;font-weight:300;}
+
+/* ===== NAV ===== */
+.nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:22px 48px;
+  transition:background .4s ease, padding .4s ease, box-shadow .4s ease;
+}
+.nav.scrolled{background:rgba(255,255,255,0.97);padding:14px 48px;box-shadow:0 1px 0 var(--line);}
+.nav-logo{display:flex;flex-direction:column;line-height:1.2;cursor:pointer;}
+.nav-logo .lg{font-size:18px;font-weight:500;letter-spacing:0.22em;color:#fff;transition:color .4s;}
+.nav-logo .sm{font-size:9px;letter-spacing:0.4em;color:rgba(255,255,255,0.6);transition:color .4s;}
+.nav.scrolled .nav-logo .lg{color:var(--ink);}
+.nav.scrolled .nav-logo .sm{color:var(--dim);}
+.nav-menu{display:flex;gap:34px;align-items:center;}
+.nav-item{
+  font-size:12px;letter-spacing:0.14em;font-weight:500;color:rgba(255,255,255,0.82);
+  padding:6px 0;position:relative;transition:color .3s;
+}
+.nav-item::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:currentColor;transition:width .3s;}
+.nav-item:hover::after,.nav-item.active::after{width:100%;}
+.nav.scrolled .nav-item{color:var(--text2);}
+.nav-item.active{color:#fff;}
+.nav.scrolled .nav-item.active{color:var(--ink);}
+.nav-tel{
+  font-size:13px;letter-spacing:0.1em;font-weight:600;color:#fff;
+  border:1px solid rgba(255,255,255,0.4);border-radius:999px;padding:8px 18px;transition:all .3s;
+  text-decoration:none;
+}
+.nav.scrolled .nav-tel{color:var(--ink);border-color:var(--line);}
+.nav-tel:hover{background:#fff;color:var(--ink);border-color:#fff;}
+.nav-burger{display:none;font-size:26px;color:#fff;}
+.nav.scrolled .nav-burger{color:var(--ink);}
+
+/* mobile drawer */
+.drawer{position:fixed;inset:0;z-index:1100;background:var(--ink);transform:translateX(100%);transition:transform .45s cubic-bezier(.16,1,.3,1);display:flex;flex-direction:column;padding:80px 40px;}
+.drawer.open{transform:translateX(0);}
+.drawer-close{position:absolute;top:24px;right:28px;font-size:30px;color:#fff;}
+.drawer-item{font-size:20px;color:rgba(255,255,255,0.85);padding:18px 0;border-bottom:1px solid var(--line-on-dark);letter-spacing:0.08em;text-align:left;}
+.drawer-tel{margin-top:36px;font-size:22px;color:#fff;font-weight:700;letter-spacing:0.08em;text-decoration:none;}
+
+/* ===== PAGE SYSTEM ===== */
+.page{display:none;}
+.page.active{display:block;animation:pageIn .6s ease;}
+@keyframes pageIn{from{opacity:0;}to{opacity:1;}}
+
+/* ===== HERO ===== */
+.hero{position:relative;height:100vh;min-height:620px;width:100%;overflow:hidden;background:var(--ink);}
+.hero-media{position:absolute;inset:0;}
+.hero-media img{width:100%;height:100%;object-fit:cover;animation:heroZoom 18s ease-out forwards;}
+@keyframes heroZoom{from{transform:scale(1.08);}to{transform:scale(1);}}
+.hero-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,13,.55) 0%,rgba(13,13,13,.25) 40%,rgba(13,13,13,.7) 100%);}
+.hero-inner{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 24px;}
+.hero-eyebrow{color:rgba(255,255,255,0.8);font-size:13px;letter-spacing:0.42em;font-weight:300;margin-bottom:26px;opacity:0;animation:fadeUp 1s ease .3s forwards;}
+.hero-logo{color:#fff;font-size:clamp(34px,6vw,76px);font-weight:300;letter-spacing:0.28em;margin-bottom:6px;opacity:0;animation:fadeUp 1.1s ease .55s forwards;}
+.hero-logo b{font-weight:500;}
+.hero-sub{color:rgba(255,255,255,0.92);font-size:clamp(15px,2vw,21px);font-weight:300;letter-spacing:0.1em;margin-top:18px;opacity:0;animation:fadeUp 1.1s ease .8s forwards;}
+.hero-scroll{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.6);font-size:10px;letter-spacing:0.3em;opacity:0;animation:fadeUp 1s ease 1.2s forwards;}
+.hero-scroll .bar{width:1px;height:46px;background:linear-gradient(rgba(255,255,255,0.7),transparent);animation:scrollBar 2s ease-in-out infinite;}
+@keyframes scrollBar{0%,100%{opacity:.3;transform:scaleY(.6);}50%{opacity:1;transform:scaleY(1);}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+
+/* ===== SECTIONS ===== */
+.section{padding:120px 48px;max-width:1280px;margin:0 auto;}
+.section-wide{padding:120px 0;}
+.bg-soft{background:var(--soft);}
+.bg-ink{background:var(--ink);color:#fff;}
+.bg-ink .lead,.bg-ink .sec-title{color:#fff;}
+.bg-ink .sec-sub,.bg-ink .lead-sub{color:var(--dim-on-dark);}
+.eyebrow{font-size:12px;letter-spacing:0.34em;font-weight:500;color:var(--dim);margin-bottom:20px;}
+.bg-ink .eyebrow{color:var(--dim-on-dark);}
+.sec-title{font-size:clamp(26px,3.6vw,44px);font-weight:300;letter-spacing:0.02em;line-height:1.35;color:var(--ink);}
+.sec-title b{font-weight:600;}
+.sec-sub{font-size:15px;color:var(--text2);font-weight:300;line-height:1.85;margin-top:22px;max-width:640px;}
+.center{text-align:center;}
+.center .sec-sub{margin-left:auto;margin-right:auto;}
+.divider-line{width:40px;height:1px;background:currentColor;opacity:.4;margin:0 0 28px;}
+.center .divider-line{margin-left:auto;margin-right:auto;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity 1s cubic-bezier(.16,1,.3,1),transform 1s cubic-bezier(.16,1,.3,1);}
+.reveal.in{opacity:1;transform:none;}
+.reveal.d1{transition-delay:.12s;}
+.reveal.d2{transition-delay:.24s;}
+.reveal.d3{transition-delay:.36s;}
+
+/* stat row */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line-on-dark);border-bottom:1px solid var(--line-on-dark);}
+.stat{padding:40px 20px;text-align:center;border-right:1px solid var(--line-on-dark);}
+.stat:last-child{border-right:none;}
+.stat .num{font-size:clamp(30px,4vw,48px);font-weight:200;color:#fff;letter-spacing:0.02em;}
+.stat .num small{font-size:16px;font-weight:300;}
+.stat .lbl{font-size:12px;letter-spacing:0.16em;color:var(--dim-on-dark);margin-top:10px;}
+
+/* full-bleed image band */
+.band{position:relative;height:70vh;min-height:420px;overflow:hidden;}
+.band img{width:100%;height:100%;object-fit:cover;}
+.band-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,13,13,.1),rgba(13,13,13,.55));}
+.band-cap{position:absolute;left:48px;bottom:44px;color:#fff;}
+.band-cap .e{font-size:12px;letter-spacing:0.3em;opacity:.8;}
+.band-cap .t{font-size:clamp(22px,3vw,38px);font-weight:300;letter-spacing:0.04em;margin-top:8px;}
+
+/* feature split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;align-items:stretch;}
+.split-img{overflow:hidden;min-height:440px;}
+.split-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease;}
+.split-img:hover img{transform:scale(1.04);}
+.split-body{padding:64px 56px;display:flex;flex-direction:column;justify-content:center;}
+.split.rev .split-img{order:2;}
+
+/* service list */
+.svc{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+.svc-card{background:var(--paper);padding:48px 44px;position:relative;min-height:300px;display:flex;flex-direction:column;}
+.svc-card .no{font-size:13px;letter-spacing:0.2em;color:var(--dim);font-weight:500;}
+.svc-card .eng-t{font-size:12px;letter-spacing:0.26em;color:var(--ink);margin-top:30px;font-weight:600;}
+.svc-card h3{font-size:23px;font-weight:500;margin-top:8px;letter-spacing:0.02em;}
+.svc-card p{font-size:14px;color:var(--text2);font-weight:300;line-height:1.8;margin-top:16px;}
+.svc-card .ic{position:absolute;top:44px;right:44px;font-size:26px;color:var(--ink);}
+
+/* gallery grid */
+.gal{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+.gal-item{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--soft2);cursor:pointer;}
+.gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1);}
+.gal-item:hover img{transform:scale(1.07);}
+.gal-cap{position:absolute;inset:0;display:flex;align-items:flex-end;padding:18px;background:linear-gradient(transparent 55%,rgba(13,13,13,.72));opacity:0;transition:opacity .4s;}
+.gal-item:hover .gal-cap{opacity:1;}
+.gal-cap span{color:#fff;font-size:14px;letter-spacing:0.06em;}
+.gal-cap .n{position:absolute;top:16px;left:18px;font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.8);}
+
+/* unit */
+.unit-tabs{display:flex;gap:10px;justify-content:center;margin-bottom:48px;flex-wrap:wrap;}
+.unit-tab{padding:13px 30px;border:1px solid var(--line);border-radius:999px;font-size:14px;letter-spacing:0.06em;color:var(--text2);transition:all .3s;}
+.unit-tab.active{background:var(--ink);color:#fff;border-color:var(--ink);}
+.unit-panel{display:none;}
+.unit-panel.active{display:block;animation:pageIn .5s ease;}
+.unit-spec{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:40px;}
+.unit-spec .chip{padding:12px 22px;background:var(--soft);border-radius:10px;font-size:14px;}
+.unit-spec .chip b{font-weight:600;}
+.unit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;}
+.unit-grid .big{grid-column:1/3;aspect-ratio:16/8;}
+.unit-cell{overflow:hidden;aspect-ratio:4/3;background:var(--soft2);position:relative;}
+.unit-cell.big{aspect-ratio:16/8;}
+.unit-cell img{width:100%;height:100%;object-fit:cover;}
+.unit-cell .tag{position:absolute;bottom:0;left:0;background:rgba(13,13,13,.78);color:#fff;font-size:11px;letter-spacing:0.14em;padding:8px 16px;}
+
+/* form */
+.form-card{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:48px;}
+.form-card.dark{background:var(--ink2);border-color:var(--line-on-dark);}
+.form-title{font-size:22px;font-weight:500;letter-spacing:0.04em;color:#fff;}
+.form-desc{font-size:14px;color:var(--dim-on-dark);margin-top:10px;margin-bottom:30px;font-weight:300;}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.f-group{margin-bottom:18px;}
+.f-label{display:block;font-size:13px;color:rgba(255,255,255,0.7);margin-bottom:8px;letter-spacing:0.04em;}
+.f-input,.f-select,.f-textarea{
+  width:100%;padding:14px 16px;background:rgba(255,255,255,0.04);
+  border:1px solid var(--line-on-dark);border-radius:10px;color:#fff;font-size:15px;font-family:inherit;transition:border .3s;
+}
+.f-input::placeholder,.f-textarea::placeholder{color:rgba(255,255,255,0.35);}
+.f-input:focus,.f-select:focus,.f-textarea:focus{outline:none;border-color:rgba(255,255,255,0.5);}
+.f-select option{background:var(--ink);}
+.f-textarea{min-height:96px;resize:vertical;}
+.f-submit{width:100%;padding:17px;background:#fff;color:var(--ink);border-radius:10px;font-size:15px;font-weight:600;letter-spacing:0.06em;margin-top:8px;transition:opacity .3s;display:flex;align-items:center;justify-content:center;gap:8px;}
+.f-submit:hover{opacity:.85;}
+.f-submit:disabled{opacity:.5;cursor:not-allowed;}
+.f-note{font-size:12px;color:rgba(255,255,255,0.4);margin-top:16px;line-height:1.6;}
+
+/* CTA */
+.cta{position:relative;padding:130px 48px;text-align:center;overflow:hidden;}
+.cta-img{position:absolute;inset:0;}
+.cta-img img{width:100%;height:100%;object-fit:cover;}
+.cta-veil{position:absolute;inset:0;background:rgba(13,13,13,.66);}
+.cta-inner{position:relative;max-width:680px;margin:0 auto;}
+.cta-inner h2{color:#fff;font-size:clamp(26px,3.4vw,42px);font-weight:300;letter-spacing:0.04em;line-height:1.4;}
+.cta-inner h2 b{font-weight:600;}
+.cta-inner p{color:rgba(255,255,255,0.8);font-size:15px;margin-top:18px;font-weight:300;}
+.cta-btns{display:flex;gap:12px;justify-content:center;margin-top:34px;flex-wrap:wrap;}
+.btn-w{padding:15px 32px;background:#fff;color:var(--ink);border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.06em;display:inline-flex;align-items:center;gap:8px;transition:opacity .3s;text-decoration:none;}
+.btn-w:hover{opacity:.85;}
+.btn-o{padding:15px 32px;background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.5);border-radius:999px;font-size:14px;font-weight:500;letter-spacing:0.06em;display:inline-flex;align-items:center;gap:8px;transition:all .3s;text-decoration:none;}
+.btn-o:hover{background:#fff;color:var(--ink);}
+
+/* footer */
+footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;}
+.foot-top{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:44px;border-bottom:1px solid var(--line-on-dark);}
+.foot-logo{font-size:20px;font-weight:500;letter-spacing:0.2em;color:#fff;}
+.foot-logo small{display:block;font-size:10px;letter-spacing:0.3em;color:var(--dim-on-dark);margin-top:6px;}
+.foot-h{font-size:12px;letter-spacing:0.2em;color:#fff;margin-bottom:16px;}
+.foot-row{font-size:13px;line-height:2;font-weight:300;}
+.foot-links{display:flex;flex-direction:column;gap:8px;}
+.foot-link{font-size:13px;color:rgba(255,255,255,0.7);font-weight:300;text-align:left;transition:color .3s;}
+.foot-link:hover{color:#fff;}
+.foot-bot{max-width:1280px;margin:28px auto 0;font-size:11px;color:var(--dim-on-dark);line-height:1.8;font-weight:300;}
+
+/* FAB */
+.fab{position:fixed;right:20px;bottom:20px;z-index:900;display:flex;flex-direction:column;gap:10px;}
+.fab a,.fab button{width:auto;}
+.fab-btn{display:flex;align-items:center;gap:8px;padding:13px 20px;border-radius:999px;font-size:14px;font-weight:600;letter-spacing:0.04em;box-shadow:0 8px 24px rgba(0,0,0,.18);}
+.fab-tel{background:#fff;color:var(--ink);border:1px solid var(--line);}
+.fab-reserve{background:var(--ink);color:#fff;}
+
+/* toast */
+#toast{position:fixed;left:50%;bottom:40px;transform:translateX(-50%) translateY(20px);z-index:2000;padding:15px 28px;border-radius:999px;font-size:14px;font-weight:500;color:#fff;opacity:0;pointer-events:none;transition:all .4s;white-space:nowrap;}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+#toast.success{background:#1a1a1a;}
+#toast.error{background:#8a2b2b;}
+
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* responsive */
+@media(max-width:960px){
+  .nav{padding:18px 24px;}
+  .nav.scrolled{padding:12px 24px;}
+  .nav-menu{display:none;}
+  .nav-burger{display:block;}
+  .section{padding:80px 24px;}
+  .split{grid-template-columns:1fr;}
+  .split.rev .split-img{order:0;}
+  .split-body{padding:44px 28px;}
+  .svc{grid-template-columns:1fr;}
+  .gal{grid-template-columns:repeat(2,1fr);gap:8px;}
+  .stats{grid-template-columns:repeat(2,1fr);}
+  .stat:nth-child(2){border-right:none;}
+  .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line-on-dark);}
+  .band-cap{left:24px;bottom:30px;}
+  .f-row{grid-template-columns:1fr;}
+  .form-card{padding:32px 24px;}
+  .foot-top{grid-template-columns:1fr;gap:32px;}
+  .cta{padding:90px 24px;}
+  .fab-btn{padding:12px 16px;font-size:13px;}
+}
+</style>
+</head>
+<body>
+
+<div id="toast"></div>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <div class="nav-logo" onclick="go('home')">
+    <span class="lg">PARK ROCHE</span>
+    <span class="sm">SEOUL ONE</span>
+  </div>
+  <div class="nav-menu">
+    <button class="nav-item active" onclick="go('home')">HOME</button>
+    <button class="nav-item" onclick="go('about')">사업개요</button>
+    <button class="nav-item" onclick="go('wellness')">WELLNESS</button>
+    <button class="nav-item" onclick="go('premium')">PREMIUM</button>
+    <button class="nav-item" onclick="go('community')">COMMUNITY</button>
+    <button class="nav-item" onclick="go('unit')">UNIT</button>
+    <button class="nav-item" onclick="go('reserve')">방문예약</button>
+  </div>
+  <a href="tel:1555-1087" class="nav-tel">1555-1087</a>
+  <button class="nav-burger" onclick="openDrawer()" aria-label="메뉴 열기"><iconify-icon icon="solar:hamburger-menu-linear"></iconify-icon></button>
+</nav>
+
+<!-- MOBILE DRAWER -->
+<div class="drawer" id="drawer">
+  <button class="drawer-close" onclick="closeDrawer()" aria-label="닫기"><iconify-icon icon="solar:close-circle-linear"></iconify-icon></button>
+  <button class="drawer-item" onclick="go('home')">HOME · 홈</button>
+  <button class="drawer-item" onclick="go('about')">사업개요</button>
+  <button class="drawer-item" onclick="go('wellness')">WELLNESS · 웰니스</button>
+  <button class="drawer-item" onclick="go('premium')">PREMIUM · 프리미엄 서비스</button>
+  <button class="drawer-item" onclick="go('community')">COMMUNITY · 커뮤니티</button>
+  <button class="drawer-item" onclick="go('unit')">UNIT · 유닛</button>
+  <button class="drawer-item" onclick="go('reserve')">방문예약 / 관심고객 등록</button>
+  <a href="tel:1555-1087" class="drawer-tel">1555-1087</a>
+</div>
+
+<!-- ============ HOME ============ -->
+<div id="page-home" class="page active">
+
+  <section class="hero">
+    <div class="hero-media"><img src="./images/parkroche/aerial-01.jpg" alt="파크로쉬 서울원 조감도 - 광운대역세권"></div>
+    <div class="hero-veil"></div>
+    <div class="hero-inner">
+      <p class="hero-eyebrow">PARK ROCHE SEOUL ONE</p>
+      <h1 class="hero-logo">파크로쉬 <b>서울원</b></h1>
+      <p class="hero-sub">새로운 삶의 방식, 웰니스 라이프의 시작</p>
+    </div>
+    <div class="hero-scroll"><span class="bar"></span>SCROLL</div>
+  </section>
+
+  <!-- intro -->
+  <section class="section center">
+    <div class="reveal">
+      <p class="eyebrow">THE GRAND CIRCLE OF LIFE</p>
+      <h2 class="sec-title">하루의 모든 순간이<br><b>하나의 원 안에서</b> 이어지다</h2>
+      <p class="sec-sub">서울 동북권 광운대역세권 개발의 중심.<br>머무름과 일상, 휴식과 건강이 자연스럽게 연결되는<br>새로운 삶의 방식을 제안합니다.</p>
+    </div>
+  </section>
+
+  <!-- stats on dark -->
+  <section class="bg-ink">
+    <div class="section" style="padding-top:90px;padding-bottom:90px;">
+      <div class="stats reveal">
+        <div class="stat"><div class="num">49<small>F</small></div><div class="lbl">지상 49층 2개 동</div></div>
+        <div class="stat"><div class="num">768<small>세대</small></div><div class="lbl">단일 단지 규모</div></div>
+        <div class="stat"><div class="num">70~80<small>㎡</small></div><div class="lbl">전용 3개 타입</div></div>
+        <div class="stat"><div class="num">4<small>대</small></div><div class="lbl">하이엔드 특화 서비스</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- band: 입지 -->
+  <section class="band reveal">
+    <img src="./images/parkroche/infra-mall.jpg" alt="서울원 도심 인프라">
+    <div class="band-veil"></div>
+    <div class="band-cap">
+      <div class="e">LOCATION</div>
+      <div class="t">광운대역세권, 도심 한가운데</div>
+    </div>
+  </section>
+
+  <!-- wellness preview split -->
+  <section class="section-wide">
+    <div class="split">
+      <div class="split-img reveal"><img src="./images/parkroche/wellness-life.jpg" alt="파크로쉬 서울원 웰니스 라이프"></div>
+      <div class="split-body bg-soft reveal d1">
+        <div class="divider-line"></div>
+        <p class="eyebrow">WELLNESS LIFE</p>
+        <h2 class="sec-title">원 안에 담은<br><b>웰니스 라이프</b></h2>
+        <p class="sec-sub">1km 원 안에서 의료·식사·여가·휴식이 끊김 없이 이어집니다. 매일의 일상이 건강한 리듬으로 연결되는 삶의 방식입니다.</p>
+        <button class="btn-o" style="color:var(--ink);border-color:var(--line);align-self:flex-start;margin-top:30px;" onclick="go('wellness')">VIEW MORE</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- community preview -->
+  <section class="section center">
+    <div class="reveal">
+      <p class="eyebrow">COMMUNITY</p>
+      <h2 class="sec-title"><b>커뮤니티</b>가 일상이 되는 곳</h2>
+      <p class="sec-sub">라운지, 카페테리아, 피트니스, 사우나까지 — 단지 안에서 누리는 수준 높은 공유 공간.</p>
+    </div>
+    <div class="gal reveal d1" style="margin-top:48px;">
+      <div class="gal-item"><img src="./images/parkroche/community-lobby.jpg" alt="로비 라운지"><div class="gal-cap"><span class="n">01</span><span>로비 라운지</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-roche-lounge.jpg" alt="로쉬 라운지"><div class="gal-cap"><span class="n">02</span><span>로쉬 라운지</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-pool.jpg" alt="수영장"><div class="gal-cap"><span class="n">03</span><span>수영장</span></div></div>
+    </div>
+    <button class="btn-o" style="color:var(--ink);border-color:var(--line);margin-top:36px;" onclick="go('community')">전체 커뮤니티 보기</button>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-img"><img src="./images/parkroche/aerial-02.jpg" alt="파크로쉬 서울원 조감도"></div>
+    <div class="cta-veil"></div>
+    <div class="cta-inner">
+      <h2>새로운 삶의 방식,<br><b>지금 갤러리에서</b> 만나보세요</h2>
+      <p>전담 상담사가 파크로쉬 서울원의 모든 것을 안내해 드립니다.</p>
+      <div class="cta-btns">
+        <button class="btn-w" onclick="go('reserve')"><iconify-icon icon="solar:calendar-mark-bold"></iconify-icon> 갤러리 방문 예약</button>
+        <a href="tel:1555-1087" class="btn-o"><iconify-icon icon="solar:phone-bold"></iconify-icon> 1555-1087</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- footer (shared markup repeated per page via JS not needed; single footer here, others reuse) -->
+  <div id="footer-slot"></div>
+</div>
+
+<!-- ============ 사업개요 ============ -->
+<div id="page-about" class="page">
+  <section class="band" style="height:56vh;margin-top:0;">
+    <img src="./images/parkroche/aerial-03.jpg" alt="파크로쉬 서울원 조감도">
+    <div class="band-veil"></div>
+    <div class="band-cap"><div class="e">PROJECT OVERVIEW</div><div class="t">사업 개요</div></div>
+  </section>
+
+  <section class="section">
+    <div class="split" style="border:1px solid var(--line);border-radius:18px;overflow:hidden;">
+      <div class="split-img reveal" style="min-height:380px;"><img src="./images/parkroche/aerial-02.jpg" alt="파크로쉬 서울원 전경"></div>
+      <div class="split-body reveal d1" style="padding:48px;">
+        <p class="eyebrow">PARK ROCHE SEOUL ONE</p>
+        <h2 class="sec-title" style="font-size:28px;">광운대역세권의<br><b>새로운 중심</b></h2>
+        <table style="width:100%;margin-top:28px;font-size:14px;border-collapse:collapse;">
+          <tbody>
+            <tr><th style="text-align:left;padding:13px 0;width:34%;color:var(--dim);font-weight:500;border-bottom:1px solid var(--line);">단지명</th><td style="padding:13px 0;border-bottom:1px solid var(--line);">파크로쉬 서울원</td></tr>
+            <tr><th style="text-align:left;padding:13px 0;color:var(--dim);font-weight:500;border-bottom:1px solid var(--line);">위치</th><td style="padding:13px 0;border-bottom:1px solid var(--line);">서울시 노원구 광운대역세권 개발사업지 내<br><span style="color:var(--dim);font-size:13px;">(예약 시 상세주소 안내)</span></td></tr>
+            <tr><th style="text-align:left;padding:13px 0;color:var(--dim);font-weight:500;border-bottom:1px solid var(--line);">규모</th><td style="padding:13px 0;border-bottom:1px solid var(--line);">지하 3층 ~ 지상 49층 · 2개 동</td></tr>
+            <tr><th style="text-align:left;padding:13px 0;color:var(--dim);font-weight:500;border-bottom:1px solid var(--line);">세대수</th><td style="padding:13px 0;border-bottom:1px solid var(--line);"><b>총 768가구</b></td></tr>
+            <tr><th style="text-align:left;padding:13px 0;color:var(--dim);font-weight:500;border-bottom:1px solid var(--line);">전용면적</th><td style="padding:13px 0;border-bottom:1px solid var(--line);">70㎡ · 73㎡ · 80㎡</td></tr>
+            <tr><th style="text-align:left;padding:13px 0;color:var(--dim);font-weight:500;border-bottom:1px solid var(--line);">청약</th><td style="padding:13px 0;border-bottom:1px solid var(--line);">연령 제한 없이 누구나</td></tr>
+            <tr><th style="text-align:left;padding:13px 0;color:var(--dim);font-weight:500;">문의</th><td style="padding:13px 0;"><b>1555-1087</b></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-soft" style="max-width:none;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <div class="center reveal" style="margin-bottom:48px;">
+        <p class="eyebrow">SITE PLAN</p>
+        <h2 class="sec-title">단지 배치</h2>
+      </div>
+      <div class="gal reveal d1" style="grid-template-columns:repeat(2,1fr);">
+        <div class="gal-item" style="aspect-ratio:16/10;"><img src="./images/parkroche/siteplan.jpg" alt="파크로쉬 서울원 단지 배치도"><div class="gal-cap"><span>단지 배치도</span></div></div>
+        <div class="gal-item" style="aspect-ratio:16/10;"><img src="./images/parkroche/siteplan-unit.jpg" alt="파크로쉬 서울원 동호 배치도"><div class="gal-cap"><span>동호 배치도</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="center reveal" style="margin-bottom:48px;">
+      <p class="eyebrow">SURROUNDING INFRA</p>
+      <h2 class="sec-title">단지 밖을 나서지 않아도<br><b>도심의 모든 것</b></h2>
+      <p class="sec-sub">아이파크몰, 메리어트, 광장, 문화 강좌까지 — 서울원 안에서 이어지는 생활 인프라.</p>
+    </div>
+    <div class="gal reveal d1">
+      <div class="gal-item"><img src="./images/parkroche/infra-mall.jpg" alt="서울원 아이파크몰"><div class="gal-cap"><span>아이파크몰</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/infra-marriott.jpg" alt="서울원 메리어트"><div class="gal-cap"><span>메리어트</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/infra-plaza.jpg" alt="서울원 광장"><div class="gal-cap"><span>서울원 광장</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/infra-lecture.jpg" alt="서울원 문화 강좌"><div class="gal-cap"><span>문화 강좌</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/infra-centumcube.jpg" alt="센텀큐브 서울원"><div class="gal-cap"><span>센텀큐브</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/wellness-urbanfarm.jpg" alt="어반팜"><div class="gal-cap"><span>어반팜</span></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ WELLNESS ============ -->
+<div id="page-wellness" class="page">
+  <section class="band" style="height:56vh;">
+    <img src="./images/parkroche/wellness-cut.jpg" alt="파크로쉬 서울원 웰니스 라이프">
+    <div class="band-veil"></div>
+    <div class="band-cap"><div class="e">WELLNESS LIFE</div><div class="t">웰니스 라이프</div></div>
+  </section>
+
+  <section class="section center">
+    <div class="reveal">
+      <p class="eyebrow">1KM ALL IN ONE</p>
+      <h2 class="sec-title">삶의 모든 것이<br><b>이어지고 연결되는</b> 하루</h2>
+      <p class="sec-sub">의료에서 식사로, 운동에서 휴식으로 — 머무는 시간 전체가 건강한 리듬으로 이어집니다. 파크로쉬 서울원이 제안하는 새로운 삶의 방식입니다.</p>
+    </div>
+  </section>
+
+  <section class="section-wide">
+    <div class="split">
+      <div class="split-img reveal"><img src="./images/parkroche/wellness-life.jpg" alt="웰니스 라이프"></div>
+      <div class="split-body bg-soft reveal d1">
+        <div class="divider-line"></div>
+        <p class="eyebrow">DAILY WELLNESS</p>
+        <h2 class="sec-title" style="font-size:30px;">일상이 곧<br><b>건강이 되는 환경</b></h2>
+        <p class="sec-sub">매일의 식사, 운동, 케어가 단지 안에서 자연스럽게 이어지도록 설계되었습니다.</p>
+      </div>
+    </div>
+    <div class="split rev">
+      <div class="split-img reveal" style="display:grid;grid-template-rows:1fr 1fr;"><img src="./images/parkroche/wellness-trend-01.jpg" alt="글로벌 웰니스 트렌드" style="width:100%;height:100%;object-fit:cover;"><img src="./images/parkroche/wellness-trend-02.jpg" alt="글로벌 웰니스 트렌드" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="split-body reveal d1">
+        <div class="divider-line"></div>
+        <p class="eyebrow">GLOBAL TREND</p>
+        <h2 class="sec-title" style="font-size:30px;">세계가 주목하는<br><b>웰니스의 흐름</b></h2>
+        <p class="sec-sub">건강과 삶의 질을 중심에 둔 글로벌 주거 트렌드를, 서울 도심 한가운데에서 누립니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section bg-soft" style="max-width:none;">
+    <div style="max-width:1280px;margin:0 auto;" class="center reveal">
+      <p class="eyebrow">PARTNERS</p>
+      <h2 class="sec-title" style="margin-bottom:40px;">함께하는 <b>파트너</b></h2>
+      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--line);">
+        <img src="./images/parkroche/partners.jpg" alt="파크로쉬 서울원 파트너" style="width:100%;">
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ PREMIUM ============ -->
+<div id="page-premium" class="page">
+  <section class="band" style="height:56vh;">
+    <img src="./images/parkroche/service-medical.jpg" alt="파크로쉬 서울원 프리미엄 서비스">
+    <div class="band-veil"></div>
+    <div class="band-cap"><div class="e">PREMIUM SERVICE</div><div class="t">4대 하이엔드 서비스</div></div>
+  </section>
+
+  <section class="section">
+    <div class="center reveal" style="margin-bottom:56px;">
+      <p class="eyebrow">WELLNESS SERVICE</p>
+      <h2 class="sec-title">머무는 일상을 위한<br><b>네 가지 약속</b></h2>
+    </div>
+    <div class="svc reveal d1">
+      <div class="svc-card">
+        <iconify-icon icon="solar:health-bold" class="ic"></iconify-icon>
+        <span class="no">01</span>
+        <div class="eng-t">MEDICAL SERVICE</div>
+        <h3>메디컬 케어</h3>
+        <p>단지 내 서울아산병원 건강검진센터와 노원을지대병원 연계. 24시간 간호 시스템과 헬스케어 모니터링으로 건강한 일상을 돌봅니다.</p>
+      </div>
+      <div class="svc-card">
+        <iconify-icon icon="solar:chef-hat-bold" class="ic"></iconify-icon>
+        <span class="no">02</span>
+        <div class="eng-t">PREMIUM DINING</div>
+        <h3>프리미엄 다이닝</h3>
+        <p>호텔HDC·고메갤러리아 협업 다이닝. 조·중·석식 선택형 식사 서비스로 매일의 한 끼를 품격 있게 완성합니다.</p>
+      </div>
+      <div class="svc-card">
+        <iconify-icon icon="solar:dumbbell-large-bold" class="ic"></iconify-icon>
+        <span class="no">03</span>
+        <div class="eng-t">WELLNESS &amp; FITNESS</div>
+        <h3>웰니스 &amp; 피트니스</h3>
+        <p>하이엔드 피트니스 브랜드 반트(VANTT) 입점. AI 웨어러블 기반의 실시간 라이프 케어로 데이터에 맞춘 건강 관리를 제공합니다.</p>
+      </div>
+      <div class="svc-card">
+        <iconify-icon icon="solar:bell-bold" class="ic"></iconify-icon>
+        <span class="no">04</span>
+        <div class="eng-t">CONCIERGE &amp; MEMBERSHIP</div>
+        <h3>컨시어지 &amp; 멤버십</h3>
+        <p>호텔식 컨시어지와 하우스키핑 서비스, HDC그룹 라이프스타일을 아우르는 멤버십 혜택으로 일상을 한층 여유롭게.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 반트 갤러리 -->
+  <section class="section bg-soft" style="max-width:none;">
+    <div style="max-width:1280px;margin:0 auto;">
+      <div class="center reveal" style="margin-bottom:48px;">
+        <p class="eyebrow">VANTT FITNESS</p>
+        <h2 class="sec-title">데이터로 관리하는<br><b>하이엔드 피트니스</b></h2>
+      </div>
+      <div class="gal reveal d1">
+        <div class="gal-item"><img src="./images/parkroche/vantt-fitness.jpg" alt="반트 피트니스"><div class="gal-cap"><span>피트니스</span></div></div>
+        <div class="gal-item"><img src="./images/parkroche/vantt-pool.jpg" alt="반트 수영장"><div class="gal-cap"><span>수영장</span></div></div>
+        <div class="gal-item"><img src="./images/parkroche/vantt-golf.jpg" alt="반트 골프 연습장"><div class="gal-cap"><span>골프 연습장</span></div></div>
+        <div class="gal-item"><img src="./images/parkroche/vantt-choice.jpg" alt="초이스 바이 반트"><div class="gal-cap"><span>CHOICE by VANTT</span></div></div>
+        <div class="gal-item"><img src="./images/parkroche/vantt-seoulone.jpg" alt="서울원 반트"><div class="gal-cap"><span>VANTT 서울원</span></div></div>
+        <div class="gal-item"><img src="./images/parkroche/service-healthcare.jpg" alt="건강 관리실"><div class="gal-cap"><span>건강 관리실</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 다이닝 / 멤버십 split -->
+  <section class="section-wide">
+    <div class="split">
+      <div class="split-img reveal" style="display:grid;grid-template-rows:1fr 1fr;"><img src="./images/parkroche/service-dining-01.jpg" alt="호텔식 다이닝" style="width:100%;height:100%;object-fit:cover;"><img src="./images/parkroche/service-dining-02.jpg" alt="루프탑 레스토랑" style="width:100%;height:100%;object-fit:cover;"></div>
+      <div class="split-body reveal d1">
+        <div class="divider-line"></div>
+        <p class="eyebrow">DINING</p>
+        <h2 class="sec-title" style="font-size:30px;">매일의 식사가<br><b>특별해지는 공간</b></h2>
+        <p class="sec-sub">호텔식 다이닝과 루프탑 레스토랑에서, 건강하고 품격 있는 한 끼를 일상으로 누립니다.</p>
+      </div>
+    </div>
+    <div class="split rev">
+      <div class="split-img reveal"><img src="./images/parkroche/service-membership.jpg" alt="멤버십 혜택"></div>
+      <div class="split-body bg-soft reveal d1">
+        <div class="divider-line"></div>
+        <p class="eyebrow">MEMBERSHIP</p>
+        <h2 class="sec-title" style="font-size:30px;">일상을 풍요롭게<br><b>멤버십 혜택</b></h2>
+        <p class="sec-sub">HDC그룹 계열의 폭넓은 라이프스타일 혜택과 연계 서비스로 더 큰 가치를 누립니다.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ COMMUNITY ============ -->
+<div id="page-community" class="page">
+  <section class="band" style="height:56vh;">
+    <img src="./images/parkroche/community-roche-lounge.jpg" alt="파크로쉬 서울원 커뮤니티">
+    <div class="band-veil"></div>
+    <div class="band-cap"><div class="e">COMMUNITY</div><div class="t">웰니스 커뮤니티</div></div>
+  </section>
+
+  <section class="section center">
+    <div class="reveal">
+      <p class="eyebrow">COMMUNITY FACILITIES</p>
+      <h2 class="sec-title">단지 안에서 누리는<br><b>수준 높은 공유 공간</b></h2>
+      <p class="sec-sub">라운지부터 피트니스, 사우나, 카페테리아까지. 외출 없이 단지 안에서 운동·휴식·만남이 이어집니다.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="gal reveal">
+      <div class="gal-item"><img src="./images/parkroche/community-lobby.jpg" alt="로비 라운지"><div class="gal-cap"><span class="n">01</span><span>로비 라운지</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-roche-lounge.jpg" alt="로쉬 라운지"><div class="gal-cap"><span class="n">02</span><span>로쉬 라운지</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-cafeteria.jpg" alt="카페테리아"><div class="gal-cap"><span class="n">03</span><span>카페테리아</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-yoga.jpg" alt="요가룸"><div class="gal-cap"><span class="n">04</span><span>요가룸</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-fitness-01.jpg" alt="피트니스"><div class="gal-cap"><span class="n">05</span><span>피트니스</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-fitness-02.jpg" alt="피트니스"><div class="gal-cap"><span class="n">06</span><span>피트니스</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-gx.jpg" alt="GX룸"><div class="gal-cap"><span class="n">07</span><span>GX 룸</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-pool.jpg" alt="수영장"><div class="gal-cap"><span class="n">08</span><span>수영장</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-golf-01.jpg" alt="스크린 골프"><div class="gal-cap"><span class="n">09</span><span>스크린 골프</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-golf-02.jpg" alt="골프"><div class="gal-cap"><span class="n">10</span><span>골프</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-sauna-01.jpg" alt="사우나"><div class="gal-cap"><span class="n">11</span><span>사우나</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-sauna-02.jpg" alt="사우나"><div class="gal-cap"><span class="n">12</span><span>사우나</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-avroom.jpg" alt="AV룸"><div class="gal-cap"><span class="n">13</span><span>AV 룸</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-program.jpg" alt="프로그램실"><div class="gal-cap"><span class="n">14</span><span>프로그램실</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-dropoff-01.jpg" alt="드롭오프존"><div class="gal-cap"><span class="n">15</span><span>드롭오프존</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-dropoff-02.jpg" alt="드롭오프존"><div class="gal-cap"><span class="n">16</span><span>드롭오프존</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-01.jpg" alt="커뮤니티"><div class="gal-cap"><span class="n">17</span><span>커뮤니티</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/service-housekeeping.jpg" alt="하우스키핑"><div class="gal-cap"><span class="n">18</span><span>하우스키핑</span></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ UNIT ============ -->
+<div id="page-unit" class="page">
+  <section class="band" style="height:56vh;">
+    <img src="./images/parkroche/unit80-living.jpg" alt="파크로쉬 서울원 유닛">
+    <div class="band-veil"></div>
+    <div class="band-cap"><div class="e">UNIT PLAN</div><div class="t">공간 설계</div></div>
+  </section>
+
+  <section class="section center">
+    <div class="reveal">
+      <p class="eyebrow">SPACE DESIGN</p>
+      <h2 class="sec-title">세대가 공존하는<br><b>유니버설 설계</b></h2>
+      <p class="sec-sub">전실 무단차(Zero-step) 설계와 여유로운 공간. 거실–안방 슬라이딩 도어와 2마스터룸 구조로 세대 분리와 공간 활용을 모두 담았습니다. 전용 70·73·80㎡ 세 가지 타입.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0;">
+    <div class="unit-tabs reveal">
+      <button class="unit-tab active" onclick="showUnit('73')">전용 73㎡</button>
+      <button class="unit-tab" onclick="showUnit('80')">전용 80㎡</button>
+    </div>
+
+    <!-- 73 -->
+    <div id="u-73" class="unit-panel active">
+      <div class="unit-spec">
+        <div class="chip"><b>전용 73㎡</b></div>
+        <div class="chip">2마스터룸 구조</div>
+        <div class="chip">전실 무단차 설계</div>
+      </div>
+      <div class="unit-grid">
+        <div class="unit-cell big"><img src="./images/parkroche/unit73-living.jpg" alt="73타입 거실"><span class="tag">LIVING</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit73-dining.jpg" alt="73타입 다이닝"><span class="tag">DINING</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit73-bedroom-01.jpg" alt="73타입 침실"><span class="tag">BEDROOM</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit73-bedroom-02.jpg" alt="73타입 침실"><span class="tag">BEDROOM</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit73-bedroom-03.jpg" alt="73타입 침실"><span class="tag">BEDROOM</span></div>
+        <div class="unit-cell big"><img src="./images/parkroche/unit73-bath.jpg" alt="73타입 욕실"><span class="tag">BATH</span></div>
+      </div>
+    </div>
+
+    <!-- 80 -->
+    <div id="u-80" class="unit-panel">
+      <div class="unit-spec">
+        <div class="chip"><b>전용 80㎡</b></div>
+        <div class="chip">2마스터룸 구조</div>
+        <div class="chip">전실 무단차 설계</div>
+      </div>
+      <div class="unit-grid">
+        <div class="unit-cell big"><img src="./images/parkroche/unit80-living.jpg" alt="80타입 거실"><span class="tag">LIVING</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit80-dining.jpg" alt="80타입 다이닝"><span class="tag">DINING</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit80-bedroom-01.jpg" alt="80타입 침실"><span class="tag">BEDROOM</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit80-bedroom-02.jpg" alt="80타입 침실"><span class="tag">BEDROOM</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit-bedroom-main.jpg" alt="마스터룸"><span class="tag">MASTER</span></div>
+        <div class="unit-cell"><img src="./images/parkroche/unit80-bath.jpg" alt="80타입 욕실"><span class="tag">BATH</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ RESERVE ============ -->
+<div id="page-reserve" class="page">
+  <section class="bg-ink" style="padding-top:130px;">
+    <div class="section" style="padding-top:40px;padding-bottom:90px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+        <div class="reveal">
+          <p class="eyebrow">RESERVATION</p>
+          <h2 class="sec-title">갤러리 방문 예약<br><b>관심고객 등록</b></h2>
+          <p class="sec-sub">파크로쉬 서울원의 모든 것을 갤러리에서 직접 만나보세요. 정보를 남겨주시면 전담 상담사가 빠르게 안내해 드립니다.</p>
+          <div style="margin-top:36px;display:flex;flex-direction:column;gap:18px;">
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div style="width:42px;height:42px;border-radius:50%;border:1px solid var(--line-on-dark);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="solar:phone-bold" style="color:#fff;"></iconify-icon></div>
+              <div><div style="font-size:12px;color:var(--dim-on-dark);">방문 예약 · 문의</div><div style="font-size:20px;font-weight:600;color:#fff;letter-spacing:0.04em;">1555-1087</div></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:14px;">
+              <div style="width:42px;height:42px;border-radius:50%;border:1px solid var(--line-on-dark);display:flex;align-items:center;justify-content:center;"><iconify-icon icon="solar:map-point-bold" style="color:#fff;"></iconify-icon></div>
+              <div><div style="font-size:12px;color:var(--dim-on-dark);">갤러리 위치</div><div style="font-size:15px;color:#fff;">서울시 노원구 광운대역세권 일원 <span style="color:var(--dim-on-dark);">(예약 시 안내)</span></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="reveal d1">
+          <div class="form-card dark">
+            <h3 class="form-title">갤러리 방문 예약</h3>
+            <p class="form-desc">아래 정보를 남겨주시면 우선 안내해 드립니다.</p>
+            <form id="reserve-form" onsubmit="submitReserve(event)">
+              <div class="f-row">
+                <div class="f-group" style="margin-bottom:0;"><label class="f-label" for="r-name">성함 *</label><input class="f-input" id="r-name" type="text" placeholder="홍길동" required autocomplete="name"></div>
+                <div class="f-group" style="margin-bottom:0;"><label class="f-label" for="r-phone">연락처 *</label><input class="f-input" id="r-phone" type="tel" placeholder="010-0000-0000" required autocomplete="tel"></div>
+              </div>
+              <div class="f-group"><label class="f-label" for="r-unit">관심 타입</label>
+                <select class="f-select" id="r-unit">
+                  <option value="">선택 (선택사항)</option>
+                  <option value="전용 70㎡">전용 70㎡</option>
+                  <option value="전용 73㎡">전용 73㎡</option>
+                  <option value="전용 80㎡">전용 80㎡</option>
+                  <option value="미정">미정</option>
+                </select>
+              </div>
+              <div class="f-group"><label class="f-label" for="r-msg">문의 내용</label><textarea class="f-textarea" id="r-msg" placeholder="궁금하신 사항을 남겨주세요. (선택)"></textarea></div>
+              <button class="f-submit" id="r-submit" type="submit"><iconify-icon icon="solar:calendar-mark-bold"></iconify-icon> 방문 예약 신청</button>
+              <p class="f-note">* 수집된 개인정보는 방문 예약 및 분양 안내 목적으로만 사용되며, 관련 법령에 따라 안전하게 관리됩니다.</p>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ FOOTER (공통) ============ -->
+<footer>
+  <div class="foot-top">
+    <div>
+      <div class="foot-logo">PARK ROCHE<small>SEOUL ONE · 파크로쉬 서울원</small></div>
+      <p class="foot-row" style="margin-top:18px;">서울시 노원구 광운대역세권 개발사업지 내<br>방문 예약 · 문의 <b style="color:#fff;">1555-1087</b></p>
+    </div>
+    <div>
+      <div class="foot-h">MENU</div>
+      <div class="foot-links">
+        <button class="foot-link" onclick="go('about')">사업개요</button>
+        <button class="foot-link" onclick="go('wellness')">웰니스</button>
+        <button class="foot-link" onclick="go('premium')">프리미엄 서비스</button>
+        <button class="foot-link" onclick="go('community')">커뮤니티</button>
+        <button class="foot-link" onclick="go('unit')">유닛</button>
+        <button class="foot-link" onclick="go('reserve')">방문예약</button>
+      </div>
+    </div>
+    <div>
+      <div class="foot-h">PROJECT</div>
+      <p class="foot-row">지상 49층 · 2개 동<br>총 768가구<br>전용 70 · 73 · 80㎡</p>
+    </div>
+  </div>
+  <p class="foot-bot">
+    본 홈페이지에 사용된 사진, 투시도, 이미지 등은 소비자의 이해를 돕기 위한 것으로 실제 시공에 따라 변경될 수 있습니다. 자세한 사항은 갤러리 방문 또는 전화 상담을 통해 안내받으시기 바랍니다.<br>
+    © PARK ROCHE SEOUL ONE. All rights reserved.
+  </p>
+</footer>
+
+<!-- FAB -->
+<div class="fab">
+  <a href="tel:1555-1087" style="text-decoration:none;"><button class="fab-btn fab-tel"><iconify-icon icon="solar:phone-bold"></iconify-icon> 전화</button></a>
+  <button class="fab-btn fab-reserve" onclick="go('reserve')"><iconify-icon icon="solar:calendar-mark-bold"></iconify-icon> 방문예약</button>
+</div>
+
+<script>
+/* ── Supabase (기존 프로젝트 재사용 / source로 현장 구분) ──
+   ⚠️ 아래 두 값을 신갈펜타원·더코리츠힐과 동일한 Supabase 값으로 채우세요. */
+const _sb = supabase.createClient(
+  'https://YOUR-PROJECT.supabase.co',
+  'YOUR-ANON-KEY'
+);
+
+const PAGES = ['home','about','wellness','premium','community','unit','reserve'];
+
+function go(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const pg=document.getElementById('page-'+id); if(pg) pg.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach((n,i)=>n.classList.toggle('active',PAGES[i]===id));
+  closeDrawer();
+  window.scrollTo({top:0,behavior:'instant'});
+  setTimeout(initReveal,80);
+}
+function openDrawer(){document.getElementById('drawer').classList.add('open');}
+function closeDrawer(){document.getElementById('drawer').classList.remove('open');}
+
+function showUnit(t){
+  document.querySelectorAll('.unit-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.unit-tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('u-'+t).classList.add('active');
+  const idx={'73':0,'80':1}[t];
+  document.querySelectorAll('.unit-tab')[idx].classList.add('active');
+  setTimeout(initReveal,80);
+}
+
+/* nav scroll state */
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{nav.classList.toggle('scrolled',window.scrollY>40);},{passive:true});
+
+/* reveal on scroll */
+let io;
+function initReveal(){
+  const els=document.querySelectorAll('.page.active .reveal:not(.in)');
+  if(!io){
+    io=new IntersectionObserver((ents)=>{
+      ents.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+    },{threshold:0.08});
+  }
+  els.forEach(el=>io.observe(el));
+}
+
+/* toast */
+function showToast(msg,type){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.className='show '+(type||'success');
+  clearTimeout(t._t);
+  t._t=setTimeout(()=>{t.className='';},4200);
+}
+
+/* reserve submit → Supabase */
+async function submitReserve(e){
+  e.preventDefault();
+  const btn=document.getElementById('r-submit');
+  const name=document.getElementById('r-name').value.trim();
+  const phone=document.getElementById('r-phone').value.trim();
+  const unit=document.getElementById('r-unit').value;
+  const msg=document.getElementById('r-msg').value.trim();
+  if(!name||!phone){showToast('성함과 연락처는 필수입니다.','error');return;}
+  btn.disabled=true;
+  btn.innerHTML='<iconify-icon icon="solar:refresh-bold" style="animation:spin 1s linear infinite;"></iconify-icon> 신청 중...';
+  try{
+    const {error}=await _sb.from('consultations').insert({
+      name:name||null, phone:phone||null, unit_type:unit||null, message:msg||null, source:'파크로쉬서울원'
+    });
+    if(error) throw error;
+    showToast('방문 예약 신청이 완료되었습니다. 빠르게 연락드리겠습니다.','success');
+    document.getElementById('reserve-form').reset();
+  }catch(err){
+    console.error('Supabase insert error:',err);
+    showToast('오류가 발생했습니다. 잠시 후 다시 시도해주세요.','error');
+  }finally{
+    btn.disabled=false;
+    btn.innerHTML='<iconify-icon icon="solar:calendar-mark-bold"></iconify-icon> 방문 예약 신청';
+  }
+}
+
+initReveal();
+</script>
+</body>
+</html>
