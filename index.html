@@ -260,6 +260,18 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
 #toast.success{background:#1a1a1a;}
 #toast.error{background:#8a2b2b;}
 
+/* lightbox */
+.gal-item,.unit-cell{cursor:zoom-in;}
+.lightbox{position:fixed;inset:0;z-index:3000;background:rgba(13,13,13,.94);display:none;align-items:center;justify-content:center;padding:24px;cursor:zoom-out;}
+.lightbox.open{display:flex;animation:pageIn .25s ease;}
+.lightbox img{max-width:96vw;max-height:90vh;width:auto;height:auto;object-fit:contain;border-radius:4px;}
+.lightbox-close{position:absolute;top:18px;right:24px;font-size:30px;color:#fff;cursor:pointer;line-height:1;}
+.lightbox-hint{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,.6);font-size:12px;letter-spacing:0.1em;}
+
+/* reserve responsive grid */
+.reserve-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;}
+@media(max-width:960px){.reserve-grid{grid-template-columns:1fr;gap:36px;}}
+
 @keyframes spin{to{transform:rotate(360deg);}}
 
 /* responsive */
@@ -358,8 +370,8 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
   </section>
 
   <!-- band: 입지 -->
-  <section class="band reveal">
-    <img src="./images/parkroche/infra-mall.jpg" alt="서울원 도심 인프라">
+  <section class="band reveal" style="height:56vh;">
+    <img src="./images/parkroche/infra-plaza.jpg" alt="서울원 도심 전경">
     <div class="band-veil"></div>
     <div class="band-cap">
       <div class="e">LOCATION</div>
@@ -665,8 +677,24 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
 
   <section class="section" style="padding-top:0;">
     <div class="unit-tabs reveal">
+      <button class="unit-tab" onclick="showUnit('70')">전용 70㎡</button>
       <button class="unit-tab active" onclick="showUnit('73')">전용 73㎡</button>
       <button class="unit-tab" onclick="showUnit('80')">전용 80㎡</button>
+    </div>
+
+    <!-- 70 (준비중) -->
+    <div id="u-70" class="unit-panel">
+      <div class="unit-spec">
+        <div class="chip"><b>전용 70㎡</b></div>
+        <div class="chip">2마스터룸 구조</div>
+        <div class="chip">전실 무단차 설계</div>
+      </div>
+      <div style="text-align:center;padding:90px 24px;border:1px dashed var(--line);border-radius:16px;background:var(--soft);">
+        <iconify-icon icon="solar:gallery-add-bold" style="font-size:42px;color:var(--dim);"></iconify-icon>
+        <p style="margin-top:18px;font-size:17px;color:var(--text2);font-weight:500;">전용 70㎡ 이미지는 준비 중입니다</p>
+        <p style="font-size:14px;color:var(--dim);margin-top:8px;">자세한 내용은 갤러리 방문 또는 전화 상담으로 안내해 드립니다.</p>
+        <button class="btn-o" style="color:var(--ink);border-color:var(--line);margin-top:24px;" onclick="go('reserve')">방문 예약하기</button>
+      </div>
     </div>
 
     <!-- 73 -->
@@ -709,7 +737,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
 <div id="page-reserve" class="page">
   <section class="bg-ink" style="padding-top:130px;">
     <div class="section" style="padding-top:40px;padding-bottom:90px;">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start;">
+      <div class="reserve-grid">
         <div class="reveal">
           <p class="eyebrow">RESERVATION</p>
           <h2 class="sec-title">갤러리 방문 예약<br><b>관심고객 등록</b></h2>
@@ -783,6 +811,13 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
   </p>
 </footer>
 
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <span class="lightbox-close" aria-label="닫기">&times;</span>
+  <img id="lightbox-img" src="" alt="확대 이미지">
+  <span class="lightbox-hint">화면을 누르면 닫힙니다</span>
+</div>
+
 <!-- FAB -->
 <div class="fab">
   <a href="tel:1555-1087" style="text-decoration:none;"><button class="fab-btn fab-tel"><iconify-icon icon="solar:phone-bold"></iconify-icon> 전화</button></a>
@@ -814,7 +849,7 @@ function showUnit(t){
   document.querySelectorAll('.unit-panel').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.unit-tab').forEach(b=>b.classList.remove('active'));
   document.getElementById('u-'+t).classList.add('active');
-  const idx={'73':0,'80':1}[t];
+  const idx={'70':0,'73':1,'80':2}[t];
   document.querySelectorAll('.unit-tab')[idx].classList.add('active');
   setTimeout(initReveal,80);
 }
@@ -870,6 +905,22 @@ async function submitReserve(e){
     btn.innerHTML='<iconify-icon icon="solar:calendar-mark-bold"></iconify-icon> 방문 예약 신청';
   }
 }
+
+/* lightbox - 갤러리/배치도/유닛 이미지 클릭 시 전체화면 */
+function openLightbox(src){
+  document.getElementById('lightbox-img').src=src;
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLightbox(){
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.addEventListener('click',function(e){
+  const img=e.target.closest('.gal-item img, .unit-cell img');
+  if(img && img.src){openLightbox(img.src);}
+});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
 
 initReveal();
 </script>
