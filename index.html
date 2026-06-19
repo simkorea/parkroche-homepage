@@ -178,7 +178,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .gal-item{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--soft2);cursor:pointer;}
 .gal-item img{width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.16,1,.3,1);}
 .gal-item:hover img{transform:scale(1.07);}
-.gal-cap{position:absolute;inset:0;display:flex;align-items:flex-end;padding:18px;background:linear-gradient(transparent 55%,rgba(13,13,13,.72));opacity:0;transition:opacity .4s;}
+.gal-cap{position:absolute;inset:0;display:flex;align-items:flex-end;padding:18px;background:linear-gradient(transparent 55%,rgba(13,13,13,.72));opacity:0;transition:opacity .4s;pointer-events:none;}
 .gal-item:hover .gal-cap{opacity:1;}
 .gal-cap span{color:#fff;font-size:14px;letter-spacing:0.06em;}
 .gal-cap .n{position:absolute;top:16px;left:18px;font-size:11px;letter-spacing:0.2em;color:rgba(255,255,255,0.8);}
@@ -274,7 +274,8 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
 
 /* dual band (2분할 이미지) */
 .dual-band{display:grid;grid-template-columns:1fr 1fr;gap:0;height:50vh;min-height:340px;}
-.dual-band>div{position:relative;overflow:hidden;}
+.dual-band>div{position:relative;overflow:hidden;cursor:zoom-in;}
+.dual-band .band-cap{pointer-events:none;}
 .dual-band img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease;}
 .dual-band>div:hover img{transform:scale(1.04);}
 @media(max-width:760px){.dual-band{grid-template-columns:1fr;height:auto;}.dual-band>div{height:40vh;min-height:240px;}}
@@ -532,16 +533,6 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
       </div>
     </div>
   </section>
-
-  <section class="section bg-soft" style="max-width:none;">
-    <div style="max-width:1280px;margin:0 auto;" class="center reveal">
-      <p class="eyebrow">PARTNERS</p>
-      <h2 class="sec-title" style="margin-bottom:40px;">함께하는 <b>파트너</b></h2>
-      <div style="border-radius:14px;overflow:hidden;border:1px solid var(--line);">
-        <img src="./images/parkroche/partners.jpg" alt="파크로쉬 서울원 파트너" style="width:100%;">
-      </div>
-    </div>
-  </section>
 </div>
 
 <!-- ============ PREMIUM ============ -->
@@ -661,11 +652,10 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
       <div class="gal-item"><img src="./images/parkroche/community-sauna-01.jpg" alt="사우나"><div class="gal-cap"><span class="n">11</span><span>사우나</span></div></div>
       <div class="gal-item"><img src="./images/parkroche/community-sauna-02.jpg" alt="사우나"><div class="gal-cap"><span class="n">12</span><span>사우나</span></div></div>
       <div class="gal-item"><img src="./images/parkroche/community-avroom.jpg" alt="AV룸"><div class="gal-cap"><span class="n">13</span><span>AV 룸</span></div></div>
-      <div class="gal-item"><img src="./images/parkroche/community-program.jpg" alt="프로그램실"><div class="gal-cap"><span class="n">14</span><span>프로그램실</span></div></div>
-      <div class="gal-item"><img src="./images/parkroche/community-dropoff-01.jpg" alt="드롭오프존"><div class="gal-cap"><span class="n">15</span><span>드롭오프존</span></div></div>
-      <div class="gal-item"><img src="./images/parkroche/community-dropoff-02.jpg" alt="드롭오프존"><div class="gal-cap"><span class="n">16</span><span>드롭오프존</span></div></div>
-      <div class="gal-item"><img src="./images/parkroche/community-01.jpg" alt="커뮤니티"><div class="gal-cap"><span class="n">17</span><span>커뮤니티</span></div></div>
-      <div class="gal-item"><img src="./images/parkroche/service-housekeeping.jpg" alt="하우스키핑"><div class="gal-cap"><span class="n">18</span><span>하우스키핑</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-dropoff-01.jpg" alt="드롭오프존"><div class="gal-cap"><span class="n">14</span><span>드롭오프존</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-dropoff-02.jpg" alt="드롭오프존"><div class="gal-cap"><span class="n">15</span><span>드롭오프존</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/community-01.jpg" alt="커뮤니티"><div class="gal-cap"><span class="n">16</span><span>커뮤니티</span></div></div>
+      <div class="gal-item"><img src="./images/parkroche/service-housekeeping.jpg" alt="하우스키핑"><div class="gal-cap"><span class="n">17</span><span>하우스키핑</span></div></div>
     </div>
   </section>
 </div>
@@ -928,8 +918,8 @@ function closeLightbox(){
   document.body.style.overflow='';
 }
 document.addEventListener('click',function(e){
-  const img=e.target.closest('.gal-item img, .unit-cell img');
-  if(img && img.src){openLightbox(img.src);}
+  const item=e.target.closest('.gal-item, .unit-cell, .dual-band>div');
+  if(item){const img=item.querySelector('img'); if(img&&img.src) openLightbox(img.src);}
 });
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLightbox();});
 
