@@ -336,6 +336,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
     <button class="nav-item" onclick="go('premium')">PREMIUM</button>
     <button class="nav-item" onclick="go('community')">COMMUNITY</button>
     <button class="nav-item" onclick="go('unit')">UNIT</button>
+    <button class="nav-item" onclick="go('apply')">청약안내</button>
     <button class="nav-item" onclick="go('reserve')">방문예약</button>
   </div>
   <a href="tel:1555-1087" class="nav-tel">1555-1087</a>
@@ -351,6 +352,7 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
   <button class="drawer-item" onclick="go('premium')">PREMIUM · 프리미엄 서비스</button>
   <button class="drawer-item" onclick="go('community')">COMMUNITY · 커뮤니티</button>
   <button class="drawer-item" onclick="go('unit')">UNIT · 유닛</button>
+  <button class="drawer-item" onclick="go('apply')">APPLY · 청약안내</button>
   <button class="drawer-item" onclick="go('reserve')">방문예약 / 관심고객 등록</button>
   <a href="tel:1555-1087" class="drawer-tel">1555-1087</a>
 </div>
@@ -759,6 +761,27 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
   </section>
 </div>
 
+<!-- ============ APPLY (청약안내) ============ -->
+<div id="page-apply" class="page">
+  <section class="bg-ink" style="padding-top:120px;padding-bottom:0;">
+    <div class="section center" style="padding-bottom:60px;">
+      <p class="eyebrow">APPLICATION</p>
+      <h2 class="sec-title">청약 안내</h2>
+      <p class="sec-sub" style="margin-left:auto;margin-right:auto;">청약 자격·신청 방법·당첨자 선정 기준을 안내해 드립니다. 자세한 사항은 입주자모집공고를 확인하시거나 갤러리로 문의해 주세요.</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:60px;">
+    <div class="reveal" style="max-width:920px;margin:0 auto;border:1px solid var(--line);border-radius:14px;overflow:hidden;cursor:zoom-in;" onclick="openLightbox('./images/parkroche/apply-notice.jpg')">
+      <img src="./images/parkroche/apply-notice.jpg" alt="파크로쉬 서울원 청약 안내문" style="width:100%;display:block;">
+    </div>
+    <p class="center" style="font-size:13px;color:var(--dim);margin-top:18px;">이미지를 누르면 크게 볼 수 있습니다. · 모든 기준은 입주자모집공고일 기준입니다.</p>
+    <div class="center" style="margin-top:34px;">
+      <button class="btn-o" style="color:var(--ink);border-color:var(--line);" onclick="go('reserve')"><iconify-icon icon="solar:calendar-mark-bold"></iconify-icon> 갤러리 방문 예약</button>
+    </div>
+  </section>
+</div>
+
 <!-- ============ RESERVE ============ -->
 <div id="page-reserve" class="page">
   <section class="bg-ink" style="padding-top:130px;">
@@ -858,7 +881,7 @@ const _sb = supabase.createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRjdGlscHVoa254dWNybG5obGt5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYxMzE3NjQsImV4cCI6MjA5MTcwNzc2NH0._mS10zf3ayR7nbdFxQJHfZS57_tzOakGm-WkyQB8bxU'
 );
 
-const PAGES = ['home','about','wellness','premium','community','unit','reserve'];
+const PAGES = ['home','about','wellness','premium','community','unit','apply','reserve'];
 
 function go(id){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
