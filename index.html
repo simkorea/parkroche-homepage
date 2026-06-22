@@ -228,6 +228,13 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;}
 .f-input:focus,.f-select:focus,.f-textarea:focus{outline:none;border-color:rgba(255,255,255,0.5);}
 .f-select option{background:var(--ink);}
 .f-textarea{min-height:96px;resize:vertical;}
+.f-date{width:100%;padding:14px 16px;background:rgba(255,255,255,0.04);border:1px solid var(--line-on-dark);border-radius:10px;color:#fff;font-size:15px;font-family:inherit;transition:border .3s;color-scheme:dark;}
+.f-date:focus{outline:none;border-color:rgba(255,255,255,0.5);}
+.time-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.time-btn{padding:11px 0;background:rgba(255,255,255,0.04);border:1px solid var(--line-on-dark);border-radius:8px;color:rgba(255,255,255,0.82);font-size:14px;font-family:inherit;cursor:pointer;transition:all .25s;}
+.time-btn:hover{border-color:rgba(255,255,255,0.45);}
+.time-btn.active{background:#fff;color:var(--ink);border-color:#fff;font-weight:600;}
+@media(max-width:520px){.time-grid{grid-template-columns:repeat(3,1fr);}}
 .f-submit{width:100%;padding:17px;background:#fff;color:var(--ink);border-radius:10px;font-size:15px;font-weight:600;letter-spacing:0.06em;margin-top:8px;transition:opacity .3s;display:flex;align-items:center;justify-content:center;gap:8px;}
 .f-submit:hover{opacity:.85;}
 .f-submit:disabled{opacity:.5;cursor:not-allowed;}
@@ -811,6 +818,28 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
                 <div class="f-group" style="margin-bottom:0;"><label class="f-label" for="r-name">성함 *</label><input class="f-input" id="r-name" type="text" placeholder="홍길동" required autocomplete="name"></div>
                 <div class="f-group" style="margin-bottom:0;"><label class="f-label" for="r-phone">연락처 *</label><input class="f-input" id="r-phone" type="tel" placeholder="010-0000-0000" required autocomplete="tel"></div>
               </div>
+              <div class="f-group"><label class="f-label" for="r-date">방문 희망일 *</label>
+                <input class="f-date" id="r-date" type="date" required>
+              </div>
+              <div class="f-group"><label class="f-label">방문 희망시간 *</label>
+                <div class="time-grid" id="time-grid">
+                  <button type="button" class="time-btn" onclick="pickTime(this,'10:00')">10:00</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'10:30')">10:30</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'11:00')">11:00</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'11:30')">11:30</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'12:00')">12:00</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'12:30')">12:30</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'13:00')">13:00</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'13:30')">13:30</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'14:00')">14:00</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'14:30')">14:30</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'15:00')">15:00</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'15:30')">15:30</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'16:00')">16:00</button>
+                  <button type="button" class="time-btn" onclick="pickTime(this,'16:30')">16:30</button>
+                </div>
+                <input type="hidden" id="r-time">
+              </div>
               <div class="f-group"><label class="f-label" for="r-unit">관심 타입</label>
                 <select class="f-select" id="r-unit">
                   <option value="">선택 (선택사항)</option>
@@ -936,16 +965,23 @@ async function submitReserve(e){
   const phone=document.getElementById('r-phone').value.trim();
   const unit=document.getElementById('r-unit').value;
   const msg=document.getElementById('r-msg').value.trim();
+  const date=document.getElementById('r-date').value;
+  const time=document.getElementById('r-time').value;
   if(!name||!phone){showToast('성함과 연락처는 필수입니다.','error');return;}
+  if(!date){showToast('방문 희망일을 선택해주세요.','error');return;}
+  if(!time){showToast('방문 희망시간을 선택해주세요.','error');return;}
+  const fullMsg='[희망방문: '+date+' '+time+']'+(msg?' '+msg:'');
   btn.disabled=true;
   btn.innerHTML='<iconify-icon icon="solar:refresh-bold" style="animation:spin 1s linear infinite;"></iconify-icon> 신청 중...';
   try{
     const {error}=await _sb.from('consultations').insert({
-      name:name||null, phone:phone||null, unit_type:unit||null, message:msg||null, source:'파크로쉬서울원'
+      name:name||null, phone:phone||null, unit_type:unit||null, message:fullMsg, source:'파크로쉬서울원'
     });
     if(error) throw error;
     showToast('방문 예약 신청이 완료되었습니다. 빠르게 연락드리겠습니다.','success');
     document.getElementById('reserve-form').reset();
+    document.querySelectorAll('#time-grid .time-btn').forEach(b=>b.classList.remove('active'));
+    document.getElementById('r-time').value='';
   }catch(err){
     console.error('Supabase insert error:',err);
     showToast('오류가 발생했습니다. 잠시 후 다시 시도해주세요.','error');
@@ -984,6 +1020,18 @@ function heroGo(i){
   heroTimer=setInterval(()=>heroGo(heroIdx+1),5500);
 }
 heroTimer=setInterval(()=>heroGo(heroIdx+1),5500);
+
+/* 방문예약 시간 선택 */
+function pickTime(btn,t){
+  document.querySelectorAll('#time-grid .time-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('r-time').value=t;
+}
+/* 날짜 최소값 = 오늘 */
+(function(){
+  const d=document.getElementById('r-date');
+  if(d){const t=new Date();const z=new Date(t.getTime()-t.getTimezoneOffset()*60000);d.min=z.toISOString().split('T')[0];}
+})();
 
 initReveal();
 </script>
