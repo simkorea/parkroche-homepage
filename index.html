@@ -366,8 +366,11 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
 .foot-links{display:flex;flex-direction:column;gap:8px;}
 .foot-link{font-size:13px;color:rgba(255,255,255,0.7);font-weight:300;text-align:left;transition:color .3s;}
 .foot-link:hover{color:#fff;}
-.foot-biz{max-width:1280px;margin:28px auto 0;font-size:11px;color:var(--dim-on-dark);line-height:1.8;font-weight:300;}
-.foot-biz span{display:inline-block;margin-right:16px;}
+.foot-biz{max-width:1280px;margin:0 auto;padding:28px 0;border-bottom:1px solid var(--line-on-dark);}
+.foot-biz-h{font-size:12px;letter-spacing:0.2em;color:rgba(255,255,255,0.85);margin-bottom:14px;}
+.foot-biz-row{font-size:13px;line-height:2;font-weight:300;color:rgba(255,255,255,0.6);}
+.foot-biz-row b{font-weight:600;color:#fff;margin-right:4px;}
+.foot-biz-row .sep{margin:0 10px;color:var(--dim-on-dark);}
 .foot-bot{max-width:1280px;margin:28px auto 0;font-size:11px;color:var(--dim-on-dark);line-height:1.8;font-weight:300;}
 
 /* FAB */
@@ -1059,10 +1062,12 @@ footer{background:var(--ink);color:rgba(255,255,255,0.7);padding:72px 48px 40px;
       <p class="foot-row">지상 49층 · 2개 동<br>총 768가구<br>전용 70 · 73 · 80㎡</p>
     </div>
   </div>
-  <p class="foot-biz">
-    <span>상호 : 더 타임즈 플레이스</span><span>대표자 : 심준형</span><span>사업자등록번호 : 807-62-00976</span><br>
-    <span>사업장 주소 : 서울특별시 마포구 양화로 56, 7층 709호(서교동, 동양한강트레벨)</span>
-  </p>
+  <div class="foot-biz">
+    <div class="foot-biz-h">사이트 운영자 정보</div>
+    <div class="foot-biz-row"><b>상호</b> 더 타임즈 플레이스<span class="sep">|</span><b>대표자</b> 심준형<span class="sep">|</span><b>사업자등록번호</b> 807-62-00976</div>
+    <div class="foot-biz-row"><b>사업장 주소</b> 서울특별시 마포구 양화로 56, 7층 709호(서교동, 동양한강트레벨)</div>
+    <div class="foot-biz-row"><b>대표전화</b> 1555-1087<span class="sep">|</span><b>휴대전화</b> 010-4257-6655</div>
+  </div>
   <p class="foot-bot">
     본 홈페이지에 사용된 사진, 투시도, 이미지 등은 소비자의 이해를 돕기 위한 것으로 실제 시공에 따라 변경될 수 있습니다. 자세한 사항은 갤러리 방문 또는 전화 상담을 통해 안내받으시기 바랍니다.<br>
     © PARK ROCHE SEOUL ONE. All rights reserved.
